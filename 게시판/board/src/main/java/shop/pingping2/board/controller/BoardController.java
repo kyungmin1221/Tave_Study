@@ -1,7 +1,6 @@
 package shop.pingping2.board.controller;
 
 
-
 // "/board" 경로로 오는 요청을 처리하는 Controller
 
 import org.springframework.ui.Model;
