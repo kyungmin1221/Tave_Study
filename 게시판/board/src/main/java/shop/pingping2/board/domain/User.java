@@ -47,6 +47,10 @@ public class User extends Time {
         return this;
     }
 
+    public String getRoleKey() {
+        return this.role.getKey();
+    }
+
 
 
 

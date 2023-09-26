@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpSession;
 
+// Controller 는 View로 부터 오는 API 요청들을 어떻게 처리할 것인지 정의하는 역할을 한다.
 // "/" 경로로 오는 요청을 처리하는 Controller //
 
 @RequiredArgsConstructor
