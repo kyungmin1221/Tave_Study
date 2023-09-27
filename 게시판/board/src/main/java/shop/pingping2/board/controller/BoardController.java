@@ -17,13 +17,21 @@ import java.util.List;
 @RequestMapping("board")
 // "/board"  경로로 들어오는 경우 아래의 Method들로 분기될 수 있도록 설정
 public class BoardController {
-    // 게시판
+    // 게시판 //
 
-    // 게시글 목록
+    // 게시글 목록 //
     // list 경로로 GET 메서드 요청이 들어올 경우 list 매서드와 맵핑시킴
     // list 경로에 요청 파라미터가 있을 경우 (?page = 1), 그에 따른 페이지네이션을 수행함
     @GetMapping({"", "/list"})
+    // @GetMapping : HTTP GET 요청을 처리하는 메서드에 사용,
+    // 주로 리소스의 조회에 사용되고, 데이터를 검색, 조회할때 사용
     public String list(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
+        // @RequestParam : 쿼리 파라미터나 폼 데이터를 메서드의 파라미터로 바인딩할 때 사용
+        // 주로 GET 요청의 파라미터를 처리할 때 사용한다.
+
+        // 페이지네이션 : 웹 개발에서 많은 양의 데이터를 페이지별로 분할하여 사용자에서 표시하는 기술
+        // 주로 데이터베이스의 결과를 일정한 크기의 부분집합으로 나누어, 한 페이지씩 사용자에서 보여준다.
+        // 이를 통해 사용자는 원하는 페이지로 쉽게 이동할 수 있으며, 시스템의 부하도 줄일 수 있다.
         List<BoardDto> boardList = boardService.getBoardlist(pageNum);
         Integer[] pageList = boardService.getPageList(pageNum);
 
@@ -33,7 +41,7 @@ public class BoardController {
         return "board/list";
     }
 
-    // 글쓰는 페이지
+    // 글쓰는 페이지 //
     @GetMapping("/post")
     public String write() {
         return "board/write";
@@ -43,6 +51,8 @@ public class BoardController {
     // 글을 쓴 뒤 POST 메서드로 글 쓴 내용을 DB에 저장
     // 그 후에는 /list 경로로 리디렉션해준다.
     @PostMapping("/post")
+    //  @PostMapping : HTTP POST 요청을 처리하는 메서드에 사용
+    // 주로 리소스의 "생성"에 사용되며 새로운 데이터를 서버에 제출할 때 사용
     public String write(BoardDto boardDto) {
         boardService.savePost(boardDto);
         return "redirect:/board/list";
@@ -53,6 +63,8 @@ public class BoardController {
     // PathVariable 어노테이션을 통해 no 를 받음
     @GetMapping("/post/{no}")
     public String detail(@PathVariable("no") Long no, Model model) {
+        // @PathVariable : URL경로에서 특정 값을 추출하여 메서드 파라미터로 전달할 때 사용
+        // '{}'로 경로 변수를 표시하고 , 이를 메서드 파라미터에서 @PathVariable 로 받을 수 있다
         BoardDto boardDTO = boardService.getPost(no);
 
         model.addAttribute("boardDto", boardDTO);
@@ -60,7 +72,7 @@ public class BoardController {
     }
 
 
-    // 게시물 수정 페이지이며, {no}로 페이지 넘버를 받는다.
+    // 게시물 수정 페이지이며, {no}로 페이지 넘버를 받는다. //
     // PathVariable 어노테이션을 통해 no 를 받음
     @GetMapping("/post/edit/{no}")
     public String edit(@PathVariable("no") Long no, Model model) {
@@ -93,7 +105,7 @@ public class BoardController {
     }
 
 
-    // 검색
+    // 검색 //
     // keyword를 view로부터 전달 받고
     // Service로부터 받은 boardDtoList를 model의 attribute로 전달해준다.
     @GetMapping("/board/search")
