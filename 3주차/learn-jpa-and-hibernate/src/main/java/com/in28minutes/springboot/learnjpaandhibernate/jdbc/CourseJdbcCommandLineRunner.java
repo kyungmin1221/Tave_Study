@@ -1,5 +1,6 @@
 package com.in28minutes.springboot.learnjpaandhibernate.jdbc;
 
+import course.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -20,7 +21,13 @@ public class CourseJdbcCommandLineRunner implements CommandLineRunner {
     // 쿼리 , 즉 insert 쿼리를 실행
     @Override
     public void run(String... args) throws Exception {
-        // 쿼리 실행
-        repository.insert();
+        // 쿼리 실행(데이터 삽입)
+        repository.insert(new Course(1,"Learn AWS NOW","in28minutes"));
+        repository.insert(new Course(2,"Learn JAVA NOW","in28minutes"));
+        repository.insert(new Course(3,"Learn IOS NOW","in28minutes"));
+
+        // 쿼리 실행(데이터 삭제)
+        repository.deleteById(1);
+
     }
 }
