@@ -8,3 +8,6 @@
 
 ###  2주차
 -  Spring Framework 의 고급 기능 살펴보기( scope, MVC, 배포준비)
+  
+###  3주차
+-  Spring JPA , Hibernate & JDBC
