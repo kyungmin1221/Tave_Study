@@ -18,8 +18,31 @@ public class SayHelloController {
     //  @ResponseBody
     // 반환받을 메시지가 리턴한 것 그대로 브라우저에 리턴하게 해줌
     public String sayHello() {
-
         // "say-hello" 라는 URL을 건들이면 밑의 문자열을 반환한다.
         return "Hello! What r u doing today?";
+    }
+
+    @RequestMapping("say-hello-html")
+    @ResponseBody
+    public String sayHelloHtml() {
+        StringBuffer sb = new StringBuffer();
+        sb.append("<html>");
+        sb.append("<head>");
+        sb.append("<title> My First HTML Page - Changed</title>");
+        sb.append("</head>");
+        sb.append("<body>");
+        sb.append("My first html page with body - Changed");
+        sb.append("</body>");
+        sb.append("</html>");
+
+        return sb.toString();
+    }
+
+    // "say-hello-jsp" => sayHello.jsp
+    // /src/main/resources/META-INF/resources/WEB-INF/jsp/sayHello.jsp
+    @RequestMapping("say-hello-jsp")
+   //  @ResponseBody   // @ResponseBody 가 있으면 spring MVC 는 여기있는것을 바로 리턴한다.
+    public String sayHelloJsp() {
+        return "sayHello";
     }
 }
