@@ -9,4 +9,5 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     // 이미 email을 통해 생성된 사용자인지 체크
     Optional<User> findBuEmail(String email);
+
 }
