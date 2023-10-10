@@ -9,9 +9,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LoginController {
-    // login => com.in28minutes.springboot.myfirstwebapp.login.LoginContoller => login.jsp
 
-    // http://localhost:8080/login?name=kyungmin
+    private AuthenticationService authenticationService;
+
+    public LoginController(AuthenticationService authenticationService) {
+        super();
+        this.authenticationService = authenticationService;
+    }
+
+    // login => com.in28minutes.springboot.myfirstwebapp.login.LoginContoller => login.jsp
     @RequestMapping(value = "login",method = RequestMethod.GET)
     public String gotoLoginPage() {
         return "login";
@@ -19,9 +25,15 @@ public class LoginController {
 
     @RequestMapping(value = "login",method = RequestMethod.POST)
     public String gotoWelcomePage(@RequestParam String name, @RequestParam String password, ModelMap model) {
-        model.put("name",name);
-        model.put("password",password);
 
-        return "welcome";
+        if (authenticationService.authenticate(name,password)) {
+            model.put("name", name);
+            // 입력이 유효한 경우 리턴할 값
+            return "welcome";
+        }
+
+        model.put("error","error message");
+        // 입력이 유효하지 않는 경우 리턴할 값
+        return "login";
     }
 }
