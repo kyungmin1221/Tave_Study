@@ -22,7 +22,11 @@ public class TodoService {
     }
 
     public List<Todo> findByUsername(String username) {
-        return todos;
+        // 매칭 조건 설정(username이 일치하면 매칭)
+        Predicate<? super Todo> predicate
+                = todo -> todo.getUsername().equalsIgnoreCase(username);
+        // 매칭이 된다면 그 매칭된 값을 스트림으로 변환
+        return todos.stream().filter(predicate).toList();
     }
 
     public void addTodo(String username, String description,
@@ -33,6 +37,7 @@ public class TodoService {
     }
 
     public void deleteById(int id) {
+        // 매칭 조건 설정(id가 일치하면 매칭)
         Predicate<? super Todo> predicate
                 = todo -> todo.getId() == id;
         todos.removeIf(predicate);

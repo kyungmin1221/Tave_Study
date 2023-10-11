@@ -1,6 +1,8 @@
 package com.in28minutes.springboot.myfirstwebapp.todo;
 
 import jakarta.validation.Valid;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -24,7 +26,8 @@ public class TodoController {
 
     @RequestMapping("list-todo")
     public String listAllTodos(ModelMap model) {
-        List<Todo> todos = todoService.findByUsername("kyungmin");
+        String username = (String)model.get("name");
+        List<Todo> todos = todoService.findByUsername(username);
         model.addAttribute("todos",todos);
         return "listTodos";
     }
@@ -73,6 +76,17 @@ public class TodoController {
         todoService.updateTodo(todo);
         return "redirect:list-todo";
     }
+
+    private String getLoggedinUsername(ModelMap model) {
+
+        // 현재 인증된 주체를 제공
+        // 인증된 사용자가 있다면 밑의 메소드를 통해 받을 수 있음
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        return authentication.getName();
+    }
+
 }
 
 
