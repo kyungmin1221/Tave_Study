@@ -13,11 +13,11 @@ public class TodoService {
     private static List<Todo> todos = new ArrayList<>();
     private static int todosCount = 0;
     static {
-        todos.add(new Todo(++todosCount,"kyungmin","Learn Spring",
+        todos.add(new Todo(++todosCount,"in28minutes","Learn Spring 2",
         LocalDate.now().plusYears(1),false));
-        todos.add(new Todo(++todosCount,"kyungmin","Learn Fullstack",
+        todos.add(new Todo(++todosCount,"in28minutes","Learn Fullstack 1",
                 LocalDate.now().plusYears(2),false));
-        todos.add(new Todo(++todosCount,"kyungmin","Learn Soccer",
+        todos.add(new Todo(++todosCount,"in28minutes","Learn Soccer 1",
                 LocalDate.now().plusYears(4),false));
     }
 
