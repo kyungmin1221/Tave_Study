@@ -4,7 +4,6 @@ package com.in28minutes.springboot.myfirstwebapp.todo;
 // to-do 앱에 관한 세부정보 저장하는 클래스 //
 
 import jakarta.validation.constraints.Size;
-
 import java.time.LocalDate;
 
 public class Todo {
@@ -18,7 +17,7 @@ public class Todo {
 
     private int id;
     private String username;
-    @Size(min=5,message = "Plz enter at least 10")
+    @Size(min=3,message = "Plz enter at least 10")
     private String description;
     private LocalDate targetDate;
     private boolean done;
