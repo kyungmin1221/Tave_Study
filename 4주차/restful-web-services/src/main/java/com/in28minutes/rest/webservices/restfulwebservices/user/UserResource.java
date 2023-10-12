@@ -1,0 +1,50 @@
+package com.in28minutes.rest.webservices.restfulwebservices.user;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
+import java.util.List;
+
+@RestController
+public class UserResource {
+
+    private UserDaoService service;
+
+
+    public UserResource(UserDaoService service) {
+        this.service = service;
+    }
+
+    // 여려명 유저의 정보를 반한해주는 메소드
+    @GetMapping("/users")
+    public List<User> retrieveAllUsers() {
+        return service.findAll();
+    }
+
+    // 단 한명만의 유저 정보를 반환해주는 메소드
+    @GetMapping ("/users/{id}")
+    public User retrieveUsers(@PathVariable int id) {
+        User user = service.findOne(id);
+
+        if(user == null) {
+            throw new UserNotFoundException("id : " + id);
+        }
+        return user;
+    }
+
+    @PostMapping("/users")
+    public ResponseEntity<User> createUsers(@RequestBody User user) {
+        User savedUser = service.save(user);
+
+        URI location =
+                        ServletUriComponentsBuilder
+                        .fromCurrentRequest()
+                        .path("/{id}")
+                        .buildAndExpand(savedUser.getId())
+                        .toUri();
+        // 201(post 생성) 반환하기 - 사용자가 생성되면 201 요청을 반환한다
+        return ResponseEntity.created(location).build();
+    }
+}

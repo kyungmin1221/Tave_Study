@@ -1,10 +1,7 @@
 package com.in28minutes.rest.webservices.restfulwebservices.helloworld;
 
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 // Rest API
 // 특정 컨트롤러를 Rest API 컨트롤러로 지정하는 어노테이션 : @RestController
@@ -23,6 +20,11 @@ public class HelloWorldController {
 
         // 클래스의 인스턴스를 반환
         return new HelloWorldBean("Hello World");
+    }
+
+    @GetMapping(path = "/hello-world/path-variable/{name}")
+    public HelloWorldBean helloWorldPathVariable(@PathVariable String name) {
+        return new HelloWorldBean(String.format("Hello %s",name));
     }
 
 }
