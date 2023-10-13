@@ -38,7 +38,8 @@ public class UserResource {
     // 작업이 성공적으로 완료되면 200 반환
     @DeleteMapping ("/users/{id}")
     public void deleteUsers(@PathVariable int id) {
-        User user = service.deleteById(id);
+
+        service.deleteById(id);
     }
 
     @PostMapping("/users")
