@@ -34,6 +34,13 @@ public class UserResource {
         return user;
     }
 
+
+    // 작업이 성공적으로 완료되면 200 반환
+    @DeleteMapping ("/users/{id}")
+    public void deleteUsers(@PathVariable int id) {
+        User user = service.deleteById(id);
+    }
+
     @PostMapping("/users")
     public ResponseEntity<User> createUsers(@RequestBody User user) {
         User savedUser = service.save(user);
@@ -47,4 +54,6 @@ public class UserResource {
         // 201(post 생성) 반환하기 - 사용자가 생성되면 201 요청을 반환한다
         return ResponseEntity.created(location).build();
     }
+
+
 }
