@@ -15,7 +15,9 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 public class Todo {
-
+    // 엔티티 //
+    // 실제 DB와 1:1 로 매칭되는 자바 클래스
+    // 데이터베이스의 기본키는 @ID 에 매핑
     public Todo() {
 
     }
